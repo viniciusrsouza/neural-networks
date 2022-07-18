@@ -1,7 +1,13 @@
 #include <iostream>
 
+#include <core.h>
+
 int main()
 {
-  std::cout << "Hello, World!" << std::endl;
+  Core::Window window(1280, 720, "Neural Networks");
+
+  window.Init();
+  window.Loop();
+
   return 0;
 }
