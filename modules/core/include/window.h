@@ -21,10 +21,8 @@ namespace Core
     void Loop();
     void Init();
     void Close();
-
-    // TODO: Create abstract layer to avoid accessing
-    // glfw internals from outside of the class.
-    GLFWwindow *window;
+    
+    bool KeyPressed(int key);
 
   private:
     update_fn m_update_function;

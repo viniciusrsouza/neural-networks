@@ -1,6 +1,4 @@
 #include <iostream>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 
 #include "dodger.h"
 
@@ -21,7 +19,7 @@ void Dodger::Exit()
 }
 void Dodger::ProcessInput(float dt)
 {
-  if (glfwGetKey(m_window->window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+  if (m_window->KeyPressed(KEY_ESCAPE))
   {
     m_state = Core::GameState::GAME_CLOSE;
   }

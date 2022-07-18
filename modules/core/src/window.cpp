@@ -46,7 +46,7 @@ void Window::Init()
 #endif
   glfwWindowHint(GLFW_RESIZABLE, false);
 
-  window = glfwCreateWindow(this->m_width, this->m_height, this->m_title, nullptr, nullptr);
+  GLFWwindow* window = glfwCreateWindow(this->m_width, this->m_height, this->m_title, nullptr, nullptr);
   glfwMakeContextCurrent(window);
 
   // glad: load all OpenGL function pointers
@@ -87,7 +87,7 @@ void Window::Loop()
 
 void Window::Close()
 {
-  glfwSetWindowShouldClose(window, true);
+  glfwSetWindowShouldClose(glfwGetCurrentContext(), true);
 }
 
 void Window::Update(float dt)
@@ -104,4 +104,9 @@ void Window::Render()
   {
     m_render_function();
   }
+}
+
+bool Window::KeyPressed(int key)
+{
+  return glfwGetKey(glfwGetCurrentContext(), key) == GLFW_PRESS;
 }
