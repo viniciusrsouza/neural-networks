@@ -18,8 +18,5 @@ add_executable(neuralnetworks ${SRC})
 target_include_directories(neuralnetworks PRIVATE ${INC})
 target_link_libraries(
   neuralnetworks
-  glad
-  glfw
-  glm
   core
 )
