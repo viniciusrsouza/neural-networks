@@ -1,8 +1,6 @@
 #include <iostream>
 
 #include <window.h>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
@@ -27,12 +25,12 @@ Window::~Window()
 {
 }
 
-void Window::OnUpdate(void (*function)(float dt))
+void Window::OnUpdate(update_fn function)
 {
   m_update_function = function;
 }
 
-void Window::OnRender(void (*function)())
+void Window::OnRender(render_fn function)
 {
   m_render_function = function;
 }
@@ -48,7 +46,7 @@ void Window::Init()
 #endif
   glfwWindowHint(GLFW_RESIZABLE, false);
 
-  GLFWwindow *window = glfwCreateWindow(this->m_width, this->m_height, this->m_title, nullptr, nullptr);
+  window = glfwCreateWindow(this->m_width, this->m_height, this->m_title, nullptr, nullptr);
   glfwMakeContextCurrent(window);
 
   // glad: load all OpenGL function pointers
@@ -89,7 +87,7 @@ void Window::Loop()
 
 void Window::Close()
 {
-  glfwTerminate();
+  glfwSetWindowShouldClose(window, true);
 }
 
 void Window::Update(float dt)

@@ -1,7 +1,13 @@
 #pragma once
+#include <functional>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 namespace Core
 {
+  typedef std::function<void(float)> update_fn;
+  typedef std::function<void()> render_fn;
+
   class Window
   {
 
@@ -10,15 +16,19 @@ namespace Core
     Window();
     ~Window();
 
-    void OnUpdate(void (*function)(float dt));
-    void OnRender(void (*function)());
+    void OnUpdate(update_fn function);
+    void OnRender(render_fn function);
     void Loop();
     void Init();
     void Close();
 
+    // TODO: Create abstract layer to avoid accessing
+    // glfw internals from outside of the class.
+    GLFWwindow *window;
+
   private:
-    void (*m_update_function)(float dt);
-    void (*m_render_function)();
+    update_fn m_update_function;
+    render_fn m_render_function;
     const char *m_title;
     int m_width;
     int m_height;
