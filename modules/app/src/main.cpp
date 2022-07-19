@@ -9,8 +9,8 @@ int main()
   Core::Window window(1280, 720, "Neural Networks");
   Dodger game = Dodger(&window);
 
-  game.Init();
   window.Init();
+  game.Init();
 
   window.OnUpdate([&game](float dt) {
     game.ProcessInput(dt);

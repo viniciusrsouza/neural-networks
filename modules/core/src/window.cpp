@@ -35,36 +35,56 @@ void Window::OnRender(render_fn function)
   m_render_function = function;
 }
 
+void Window::OnInit(init_fn function)
+{
+  m_init_function = function;
+}
+
 void Window::Init()
 {
-  glfwInit();
+  if (!glfwInit())
+  {
+    std::cout << "Failed to initialize GLFW" << std::endl;
+    return;
+  }
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 #ifdef __APPLE__
+  std::cout << "Apple system, runnning in compat mode." << std::endl;
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
   glfwWindowHint(GLFW_RESIZABLE, false);
 
-  GLFWwindow* window = glfwCreateWindow(this->m_width, this->m_height, this->m_title, nullptr, nullptr);
+  GLFWwindow *window = glfwCreateWindow(this->m_width, this->m_height, this->m_title, nullptr, nullptr);
+
+  if (!window)
+  {
+    std::cout << "Failed to create GLFW window" << std::endl;
+    glfwTerminate();
+  }
+
   glfwMakeContextCurrent(window);
 
-  // glad: load all OpenGL function pointers
-  // ---------------------------------------
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
   {
     std::cout << "Failed to initialize GLAD" << std::endl;
     return;
   }
 
-  // glfwSetKeyCallback(window, key_callback);
-  // glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+  unsigned int major = glfwGetWindowAttrib(window, GLFW_CONTEXT_VERSION_MAJOR);
+  unsigned int minor = glfwGetWindowAttrib(window, GLFW_CONTEXT_VERSION_MINOR);
+  std::cout << "Shader version: " << major << "." << minor << std::endl;
 
-  // OpenGL configuration
-  // --------------------
-  glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-  glEnable(GL_BLEND);
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  std::cout << "Initialized OpenGL context" << std::endl;
+  std::cout << glGetString(GL_VERSION) << std::endl;
+
+  glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+  if (m_init_function)
+  {
+    m_init_function();
+  }
 }
 
 void Window::Loop()
@@ -100,6 +120,8 @@ void Window::Update(float dt)
 
 void Window::Render()
 {
+  glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT);
   if (m_render_function)
   {
     m_render_function();
@@ -109,4 +131,9 @@ void Window::Render()
 bool Window::KeyPressed(int key)
 {
   return glfwGetKey(glfwGetCurrentContext(), key) == GLFW_PRESS;
+}
+
+void Core::framebuffer_size_callback(GLFWwindow *window, int width, int height)
+{
+  glViewport(0, 0, width, height);
 }

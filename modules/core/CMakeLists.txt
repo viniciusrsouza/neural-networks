@@ -9,13 +9,17 @@ project(
   LANGUAGES CXX
 )
 
+file (GLOB_RECURSE SOURCES "*.cpp")
+file (GLOB_RECURSE HEADERS "*.h")
+
 add_library(
   core STATIC
-  src/window.cpp
-  src/game.cpp
+  ${SOURCES} ${HEADERS}
 )
 
-target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(
+  core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include"
+)
 
 set_target_properties(
   core PROPERTIES
@@ -23,4 +27,4 @@ set_target_properties(
   PUBLIC_HEADER "core.h"
 )
 
-target_link_libraries(core glfw glad)
+target_link_libraries(core glm glfw glad)
