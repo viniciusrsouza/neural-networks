@@ -8,7 +8,7 @@ namespace Core
   class Triangle : public Shape
   {
   public:
-    Triangle(glm::vec3 a, glm::vec3 b, glm::vec3 c);
+    Triangle(glm::vec2 a, glm::vec2 b, glm::vec2 c);
     // Triangle(const Triangle &triangle);
     ~Triangle();
     
@@ -16,20 +16,20 @@ namespace Core
     virtual void Draw(Shader *shader = nullptr) const;
     
   private:
-    glm::vec3 m_a;
-    glm::vec3 m_b;
-    glm::vec3 m_c;
+    glm::vec2 m_a;
+    glm::vec2 m_b;
+    glm::vec2 m_c;
 
-    float m_vertices[9];
+    float m_vertices[6];
     unsigned int m_VBO, m_VAO;
   };
 }
 
 namespace Primitives
 {
-  static const Core::Triangle EQ_TRIANGLE(
-    glm::vec3(-0.5f, -0.5f, 0.0f), 
-    glm::vec3(0.5f, -0.5f, 0.0f), 
-    glm::vec3(0.0f, 0.5f, 0.0f)
+  static Core::Triangle EQ_TRIANGLE(
+    glm::vec2(-1.0f, -1.0f), 
+    glm::vec2(1.0f, -1.0f), 
+    glm::vec2(0.0f, 1.0f)
   );
 }

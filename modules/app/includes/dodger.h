@@ -14,7 +14,7 @@ public:
   void Render();
 
 private:
-  Core::Triangle m_Triangle;
   Core::ResourceManager m_ResourceManager;
   Core::Shader *m_Shader;
+  Core::Object m_Entity;
 };

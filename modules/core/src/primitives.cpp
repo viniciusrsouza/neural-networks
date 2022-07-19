@@ -3,15 +3,15 @@
 
 using namespace Core;
 
-Triangle::Triangle(glm::vec3 a, glm::vec3 b, glm::vec3 c)
+Triangle::Triangle(glm::vec2 a, glm::vec2 b, glm::vec2 c)
 {
   m_a = a;
   m_b = b;
   m_c = c;
 
-  m_vertices[0] = a.x; m_vertices[1] = a.y; m_vertices[2] = a.z;
-  m_vertices[3] = b.x; m_vertices[4] = b.y; m_vertices[5] = b.z;
-  m_vertices[6] = c.x; m_vertices[7] = c.y; m_vertices[8] = c.z;
+  m_vertices[0] = a.x; m_vertices[1] = a.y;
+  m_vertices[2] = b.x; m_vertices[3] = b.y;
+  m_vertices[4] = c.x; m_vertices[5] = c.y;
 }
 
 Triangle::~Triangle()
@@ -27,7 +27,7 @@ void Triangle::Bind()
   glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertices), &m_vertices, GL_STATIC_DRAW);
 
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+  glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
   glEnableVertexAttribArray(0);
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);

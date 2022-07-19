@@ -25,6 +25,8 @@ namespace Core
     void Loop();
     void Init();
     void Close();
+    int GetWidth();
+    int GetHeight();
     
     bool KeyPressed(int key);
 

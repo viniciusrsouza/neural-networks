@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "shape.h"
+#include "shader.h"
 
 namespace Core
 {
@@ -10,13 +11,17 @@ namespace Core
   {
   public:
     Object(Shape *shape);
+    Object(Shape *shape, glm::vec2 position, glm::vec2 scale, float rotation);
     ~Object();
     
-    virtual void Draw() const = 0;
-    glm::vec3 GetPosition() const;
+    void Bind();
+    void Draw(Shader *shader) const;
+    glm::vec2 GetPosition() const;
   
   protected:
-    Shape *m_shape;
-    glm::vec3 m_position;
+    Shape *m_Shape;
+    glm::vec2 m_Position;
+    glm::vec2 m_Scale;
+    float m_Rotation;
   };
 }

@@ -3,7 +3,7 @@
 #include "dodger.h"
 
 Dodger::Dodger(Core::Window* window) : Core::Game(window), 
-  m_Triangle(Primitives::EQ_TRIANGLE), 
+  m_Entity(&Primitives::EQ_TRIANGLE, glm::vec2(300.0f, 300.0f), glm::vec2(100.0f, 100.0f), 180.0f), 
   m_ResourceManager("./modules/app/resources/")
 {
   m_Shader = new Core::Shader();
@@ -20,7 +20,8 @@ void Dodger::Init()
     m_ResourceManager.ReadFile("shaders/default/vertex.glsl").c_str(),
     m_ResourceManager.ReadFile("shaders/default/fragment.glsl").c_str()
   );
-  m_Triangle.Bind();
+  Primitives::EQ_TRIANGLE.Bind();
+  m_Entity.Bind();
 }
 
 void Dodger::Exit()
@@ -43,5 +44,15 @@ void Dodger::Update(float dt)
 }
 void Dodger::Render()
 {
-  m_Triangle.Draw(m_Shader);
+  glm::mat4 projection = glm::ortho(
+    0.0f,
+    static_cast<float>(m_window->GetWidth()),
+    static_cast<float>(m_window->GetHeight()),
+    0.0f,
+    -1.0f,
+    1.0f
+  );
+  m_Shader->Use();
+  m_Shader->SetMatrix4("projection", projection);
+  m_Entity.Draw(m_Shader);
 }

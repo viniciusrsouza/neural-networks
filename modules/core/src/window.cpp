@@ -120,12 +120,22 @@ void Window::Update(float dt)
 
 void Window::Render()
 {
-  glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT);
   if (m_render_function)
   {
     m_render_function();
   }
+}
+
+int Window::GetWidth()
+{
+  return m_width;
+}
+
+int Window::GetHeight()
+{
+  return m_height;
 }
 
 bool Window::KeyPressed(int key)
