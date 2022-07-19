@@ -10,7 +10,9 @@ project(
 )
 
 file (GLOB_RECURSE SOURCES "*.cpp")
+file (GLOB_RECURSE PRIMITIVE_SOURCES "primitives/*.cpp")
 file (GLOB_RECURSE HEADERS "*.h")
+file (GLOB_RECURSE PRIMITIVE_HEADERS "primitives/*.h")
 
 add_library(
   core STATIC

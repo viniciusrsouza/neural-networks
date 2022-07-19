@@ -8,3 +8,4 @@
 #include "object.h"
 #include "resource_manager.h"
 #include "primitives/triangle.h"
+#include "primitives/rectangle.h"
