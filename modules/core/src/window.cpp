@@ -138,6 +138,11 @@ int Window::GetHeight()
   return m_height;
 }
 
+float Window::GetTime()
+{
+  return glfwGetTime();
+}
+
 bool Window::KeyPressed(int key)
 {
   return glfwGetKey(glfwGetCurrentContext(), key) == GLFW_PRESS;

@@ -27,6 +27,7 @@ namespace Core
     void Close();
     int GetWidth();
     int GetHeight();
+    float GetTime();
     
     bool KeyPressed(int key);
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <core.h>
 #include "player.h"
+#include "object_buffer.h"
 
 class Dodger : public Core::Game
 {
@@ -17,6 +18,6 @@ public:
 private:
   Core::ResourceManager m_ResourceManager;
   Core::Shader *m_Shader;
-  Core::Object m_Entity;
   Player m_Player;
+  ObjectBuffer m_ObjectBuffer;
 };

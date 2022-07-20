@@ -3,9 +3,9 @@
 #include "dodger.h"
 
 Dodger::Dodger(Core::Window* window) : Core::Game(window), 
-  m_Entity(&Core::Primitives::SQUARE, glm::vec2(1000.0f, 600.0f), glm::vec2(100.0f, 100.0f), 180.0f),
   m_Player(glm::vec2(300.0f, 300.0f)), 
-  m_ResourceManager("./modules/app/resources/")
+  m_ResourceManager("./modules/app/resources/"),
+  m_ObjectBuffer(window->GetWidth(), window->GetHeight())
 {
   m_Shader = new Core::Shader();
 }
@@ -23,7 +23,6 @@ void Dodger::Init()
   );
   Core::Primitives::SQUARE.Bind();
   m_Player.Bind();
-  m_Entity.Bind();
 }
 
 void Dodger::Exit()
@@ -45,6 +44,7 @@ void Dodger::Update(float dt)
   }
 
   m_Player.Update(dt, m_Window->GetHeight());
+  m_ObjectBuffer.Update(dt, m_Window->GetTime());
 }
 void Dodger::Render()
 {
@@ -59,5 +59,5 @@ void Dodger::Render()
   m_Shader->Use();
   m_Shader->SetMatrix4("projection", projection);
   m_Player.Draw(m_Shader);
-  // m_Entity.Draw(m_Shader);
+  m_ObjectBuffer.Render(m_Shader);
 }
