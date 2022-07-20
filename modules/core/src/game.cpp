@@ -5,8 +5,8 @@ using namespace Core;
 
 Game::Game(Window* window)
 {
-  m_state = GAME_ACTIVE;
-  m_window = window;
+  m_State = GAME_ACTIVE;
+  m_Window = window;
 }
 
 Game::~Game()

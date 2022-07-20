@@ -22,7 +22,7 @@ namespace Core
     virtual void Render(){};
 
   protected:
-    GameState m_state;
-    Window *m_window;
+    GameState m_State;
+    Window *m_Window;
   };
 }

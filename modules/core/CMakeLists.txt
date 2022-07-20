@@ -16,6 +16,7 @@ file (GLOB_RECURSE PRIMITIVE_HEADERS "primitives/*.h")
 
 add_library(
   core STATIC
+  ${PRIMITIVE_SOURCES} ${PRIMITIVE_HEADERS}
   ${SOURCES} ${HEADERS}
 )
 

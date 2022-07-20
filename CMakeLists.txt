@@ -19,4 +19,5 @@ target_include_directories(neuralnetworks PRIVATE ${INC})
 target_link_libraries(
   neuralnetworks
   core
+  glm
 )

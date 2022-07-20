@@ -23,13 +23,3 @@ namespace Core
     unsigned int m_VBO, m_VAO;
   };
 }
-
-namespace Primitives
-{
-  static Core::Rectangle SQUARE(
-    glm::vec2(-1.0f, -1.0f), 
-    glm::vec2(1.0f, -1.0f), 
-    glm::vec2(1.0f, 1.0f), 
-    glm::vec2(-1.0f, 1.0f)
-  );
-}

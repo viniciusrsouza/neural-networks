@@ -1,4 +1,5 @@
 #include <object.h>
+#include <iostream>
 
 using namespace Core;
 

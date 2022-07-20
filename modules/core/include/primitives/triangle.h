@@ -24,12 +24,3 @@ namespace Core
     unsigned int m_VBO, m_VAO;
   };
 }
-
-namespace Primitives
-{
-  static Core::Triangle EQ_TRIANGLE(
-    glm::vec2(-1.0f, -1.0f), 
-    glm::vec2(1.0f, -1.0f), 
-    glm::vec2(0.0f, 1.0f)
-  );
-}

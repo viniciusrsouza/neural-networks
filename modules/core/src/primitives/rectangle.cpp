@@ -1,5 +1,6 @@
 #include <primitives/rectangle.h>
 #include <glad/glad.h>
+#include <iostream>
 
 using namespace Core;
 
