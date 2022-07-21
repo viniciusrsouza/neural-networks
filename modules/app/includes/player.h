@@ -10,10 +10,12 @@ public:
   ~Player();
 
   glm::vec2 GetPosition() const;
+  virtual void Bind();
   void Update(float dt, float yBoundary);
   void Jump();
 
 private:
+  Player(glm::vec2 position, Core::Shape *shape);
   float m_Velocity;
   float m_Acceleration;
   float m_Size;

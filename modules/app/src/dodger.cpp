@@ -31,10 +31,16 @@ void Dodger::Exit()
 }
 void Dodger::ProcessInput(float dt)
 {
-  if (m_Window->KeyPressed(KEY_ESCAPE))
-    m_State = Core::GameState::GAME_CLOSE;
+  if (m_Window->KeyPressed(KEY_ESCAPE)) {
+    if (m_State == Core::GameState::GAME_ACTIVE)
+      m_State = Core::GameState::GAME_PAUSED;
+    else if (m_State == Core::GameState::GAME_PAUSED)
+      m_State = Core::GameState::GAME_ACTIVE;
+  }
   if (m_Window->KeyPressed(KEY_SPACE))
     m_Player.Jump();
+  if (m_Window->KeyPressed(KEY_Q) && m_State == Core::GameState::GAME_PAUSED)
+    m_State = Core::GameState::GAME_CLOSE;
 }
 void Dodger::Update(float dt)
 {
@@ -42,9 +48,11 @@ void Dodger::Update(float dt)
   {
     Exit();
   }
-
-  m_Player.Update(dt, m_Window->GetHeight());
-  m_ObjectBuffer.Update(dt, m_Window->GetTime());
+  else if (m_State == Core::GameState::GAME_ACTIVE)
+  {
+    m_Player.Update(dt, m_Window->GetHeight());
+    m_ObjectBuffer.Update(dt, m_Window->GetTime());
+  }
 }
 void Dodger::Render()
 {

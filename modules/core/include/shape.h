@@ -7,8 +7,7 @@ namespace Core
   class Shape
   {
   public:
-    Shape();
-    ~Shape();
+    virtual ~Shape() = default;
     
     virtual void Bind() = 0;
     virtual void Draw(Shader *shader = nullptr) const = 0;

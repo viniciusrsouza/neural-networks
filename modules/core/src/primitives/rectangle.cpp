@@ -19,10 +19,6 @@ Rectangle::Rectangle(glm::vec2 a, glm::vec2 b, glm::vec2 c, glm::vec2 d)
   m_vertices[10] = c.x; m_vertices[11] = c.y;
 }
 
-Rectangle::~Rectangle()
-{
-}
-
 void Rectangle::Bind()
 {
   glGenVertexArrays(1, &m_VAO);

@@ -10,7 +10,7 @@ namespace Core
   public:
     Triangle(glm::vec2 a, glm::vec2 b, glm::vec2 c);
     // Triangle(const Triangle &triangle);
-    ~Triangle();
+    // ~Triangle();
     
     virtual void Bind();
     virtual void Draw(Shader *shader = nullptr) const;

@@ -8,7 +8,7 @@ namespace Core
   {
   public:
     Rectangle(glm::vec2 a, glm::vec2 b, glm::vec2 c, glm::vec2 d);
-    ~Rectangle();
+    // ~Rectangle();
 
     virtual void Bind();
     virtual void Draw(Shader *shader = nullptr) const;

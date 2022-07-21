@@ -14,7 +14,7 @@ namespace Core
     Object(Shape *shape, glm::vec2 position, glm::vec2 scale, float rotation);
     ~Object();
     
-    void Bind();
+    virtual void Bind();
     void Draw(Shader *shader) const;
     glm::vec2 GetPosition() const;
   

@@ -14,10 +14,6 @@ Triangle::Triangle(glm::vec2 a, glm::vec2 b, glm::vec2 c)
   m_vertices[4] = c.x; m_vertices[5] = c.y;
 }
 
-Triangle::~Triangle()
-{
-}
-
 void Triangle::Bind()
 {
   glGenVertexArrays(1, &m_VAO);

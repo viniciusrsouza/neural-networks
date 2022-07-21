@@ -92,6 +92,7 @@ void Window::Loop()
   float deltaTime = 0.0f;
   float lastFrame = 0.0f;
 
+  // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   while (!glfwWindowShouldClose(glfwGetCurrentContext()))
   {
     float currentFrame = glfwGetTime();

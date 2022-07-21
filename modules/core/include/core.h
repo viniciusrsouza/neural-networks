@@ -9,4 +9,5 @@
 #include "resource_manager.h"
 #include "primitives/triangle.h"
 #include "primitives/rectangle.h"
+#include "primitives/circle.h"
 #include "primitives/primitives.h"

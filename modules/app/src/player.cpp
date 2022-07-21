@@ -1,12 +1,27 @@
 #include <player.h>
 #include <iostream>
 
+#define PLAYER_SIZE 25.0f
+
+static Core::Shape *playerShape()
+{
+  return new Core::Circle(
+    glm::vec2(0.0f, 0.0f),
+    1.0f,
+    32
+  );
+}
+
 Player::Player() : Player(glm::vec2(100.0f, 100.0f))
 {
 }
 
-Player::Player(glm::vec2 position) : Core::Object(&Core::Primitives::SQUARE, position, glm::vec2(20.0f, 20.0f), 180.0f),
-                                     m_Size(20.0f),
+Player::Player(glm::vec2 position) : Player(position, playerShape())
+{
+}
+
+Player::Player(glm::vec2 position, Core::Shape *shape) : Core::Object(shape, position, glm::vec2(PLAYER_SIZE, PLAYER_SIZE), 180.0f),
+                                     m_Size(PLAYER_SIZE),
                                      m_JumpSpeed(-20.0f),
                                      m_IsJumping(false),
                                      m_Velocity(0.0f),
@@ -18,6 +33,13 @@ Player::Player(glm::vec2 position) : Core::Object(&Core::Primitives::SQUARE, pos
 
 Player::~Player()
 {
+  delete m_Shape;
+}
+
+void Player::Bind()
+{
+  Core::Object::Bind();
+  m_Shape->Bind();
 }
 
 void Player::Update(float dt, float yBoundary)
