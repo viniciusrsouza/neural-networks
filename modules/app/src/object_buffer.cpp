@@ -1,4 +1,5 @@
 #include <object_buffer.h>
+#include <iostream>
 
 ObjectBuffer::ObjectBuffer(int width, int height)
 {
@@ -38,9 +39,16 @@ void ObjectBuffer::Update(float dt, float ellapsedTime)
     m_GenerateTime = (int) ellapsedTime;
   }
 
+  std::cout << "objects: " << m_Objects.size() << std::endl;
   for (auto object : m_Objects)
   {
     object->Update(dt);
+    // TODO: take object size into account
+    if (object->GetPosition().x < 0)
+    {
+      delete object;
+      m_Objects.erase(std::remove(m_Objects.begin(), m_Objects.end(), object), m_Objects.end());
+    }
   }
 }
 
