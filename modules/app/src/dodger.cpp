@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 #include "dodger.h"
 
@@ -17,6 +18,9 @@ Dodger::~Dodger()
 
 void Dodger::Init()
 {
+  m_Window->RegisterKeys(std::vector<int>({
+    KEY_ESCAPE, KEY_SPACE, KEY_Q
+  }));
   m_Shader->Compile(
     m_ResourceManager.ReadFile("shaders/default/vertex.glsl").c_str(),
     m_ResourceManager.ReadFile("shaders/default/fragment.glsl").c_str()
@@ -31,15 +35,17 @@ void Dodger::Exit()
 }
 void Dodger::ProcessInput(float dt)
 {
-  if (m_Window->KeyPressed(KEY_ESCAPE)) {
+  if (m_Window->KeyUp(KEY_ESCAPE)) {
     if (m_State == Core::GameState::GAME_ACTIVE)
       m_State = Core::GameState::GAME_PAUSED;
     else if (m_State == Core::GameState::GAME_PAUSED)
       m_State = Core::GameState::GAME_ACTIVE;
   }
   if (m_Window->KeyPressed(KEY_SPACE))
+  {
     m_Player.Jump();
-  if (m_Window->KeyPressed(KEY_Q) && m_State == Core::GameState::GAME_PAUSED)
+  }
+  if (m_Window->KeyUp(KEY_Q) && m_State == Core::GameState::GAME_PAUSED)
     m_State = Core::GameState::GAME_CLOSE;
 }
 void Dodger::Update(float dt)

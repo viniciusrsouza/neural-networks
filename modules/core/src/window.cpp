@@ -23,6 +23,7 @@ Window::Window() : Window(SCREEN_WIDTH, SCREEN_HEIGHT, "Window")
 
 Window::~Window()
 {
+  delete m_KeyboardManager;
 }
 
 void Window::OnUpdate(update_fn function)
@@ -80,6 +81,7 @@ void Window::Init()
   std::cout << glGetString(GL_VERSION) << std::endl;
 
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+  m_KeyboardManager = new KeyboardManager(window);
 
   if (m_init_function)
   {
@@ -113,6 +115,7 @@ void Window::Close()
 
 void Window::Update(float dt)
 {
+  m_KeyboardManager->Process();
   if (m_update_function)
   {
     m_update_function(dt);
@@ -144,9 +147,24 @@ float Window::GetTime()
   return glfwGetTime();
 }
 
+void Window::RegisterKeys(std::vector<int> keys)
+{
+  m_KeyboardManager->RegisterKeys(keys);
+}
+
 bool Window::KeyPressed(int key)
 {
-  return glfwGetKey(glfwGetCurrentContext(), key) == GLFW_PRESS;
+  return m_KeyboardManager->IsKeyPressed(key);
+}
+
+bool Window::KeyDown(int key)
+{
+  return m_KeyboardManager->IsKeyDown(key);
+}
+
+bool Window::KeyUp(int key)
+{
+  return m_KeyboardManager->IsKeyUp(key);
 }
 
 void Core::framebuffer_size_callback(GLFWwindow *window, int width, int height)
