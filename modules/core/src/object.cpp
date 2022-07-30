@@ -24,6 +24,11 @@ glm::vec2 Object::GetPosition() const
   return glm::vec2(m_Position);
 }
 
+glm::vec2 Object::GetScale() const
+{
+  return glm::vec2(m_Scale);
+}
+
 void Object::Bind()
 {
   // m_Shape->Bind();

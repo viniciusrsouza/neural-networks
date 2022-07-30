@@ -17,6 +17,7 @@ namespace Core
     virtual void Bind();
     void Draw(Shader *shader) const;
     glm::vec2 GetPosition() const;
+    glm::vec2 GetScale() const;
   
   protected:
     Shape *m_Shape;
