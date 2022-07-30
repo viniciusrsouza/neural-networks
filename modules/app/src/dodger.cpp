@@ -26,6 +26,7 @@ void Dodger::Init()
     m_ResourceManager.ReadFile("shaders/default/fragment.glsl").c_str()
   );
   Core::Primitives::SQUARE.Bind();
+  Core::Primitives::CIRCLE.Bind();
   m_Player.Bind();
 }
 
@@ -45,7 +46,7 @@ void Dodger::ProcessInput(float dt)
   {
     m_Player.Jump();
   }
-  if (m_Window->KeyUp(KEY_Q) && m_State == Core::GameState::GAME_PAUSED)
+  if (m_Window->KeyUp(KEY_Q) && (m_State == Core::GameState::GAME_PAUSED || m_State == Core::GameState::GAME_OVER))
     m_State = Core::GameState::GAME_CLOSE;
 }
 void Dodger::Update(float dt)
@@ -58,6 +59,11 @@ void Dodger::Update(float dt)
   {
     m_Player.Update(dt, m_Window->GetHeight());
     m_ObjectBuffer.Update(dt, m_Window->GetTime());
+
+    if (m_Player.Collides(&m_ObjectBuffer))
+    {
+      m_State = Core::GameState::GAME_OVER;
+    }
   }
 }
 void Dodger::Render()

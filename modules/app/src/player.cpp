@@ -3,20 +3,11 @@
 
 #define PLAYER_SIZE 25.0f
 
-static Core::Shape *playerShape()
-{
-  return new Core::Circle(
-    glm::vec2(0.0f, 0.0f),
-    1.0f,
-    32
-  );
-}
-
 Player::Player() : Player(glm::vec2(100.0f, 100.0f))
 {
 }
 
-Player::Player(glm::vec2 position) : Player(position, playerShape())
+Player::Player(glm::vec2 position) : Player(position, &Core::Primitives::CIRCLE)
 {
 }
 
@@ -33,13 +24,13 @@ Player::Player(glm::vec2 position, Core::Shape *shape) : Core::Object(shape, pos
 
 Player::~Player()
 {
-  delete m_Shape;
+  // delete m_Shape;
 }
 
 void Player::Bind()
 {
   Core::Object::Bind();
-  m_Shape->Bind();
+  // m_Shape->Bind();
 }
 
 void Player::Update(float dt, float yBoundary)
@@ -83,4 +74,21 @@ void Player::Jump()
 glm::vec2 Player::GetPosition() const
 {
   return glm::vec2(m_Position);
+}
+
+bool Player::Collides(ObjectBuffer *buffer)
+{
+  for (auto obj : buffer->GetObjects())
+  {
+    glm::vec2 pos = obj->GetPosition();
+    glm::vec2 size = obj->GetScale();
+    float radius = size.x;
+
+    float distance = glm::distance(m_Position, pos);
+    if (PLAYER_SIZE + radius > distance)
+    {
+      return true;
+    }
+  }
+  return false;
 }

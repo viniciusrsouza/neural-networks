@@ -1,3 +1,4 @@
+#pragma once
 #include <core.h>
 #include <vector>
 #include "generated_object.h"
@@ -11,6 +12,7 @@ public:
   void Generate();
   void Update(float dt, float ellapsedTime);
   void Render(Core::Shader *shader);
+  std::vector<GeneratedObject*> GetObjects();
 
 private:
   int m_Width;

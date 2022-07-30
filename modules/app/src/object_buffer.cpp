@@ -3,16 +3,7 @@
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
-
-float min(float a, float b)
-{
-  return a < b ? a : b;
-}
-
-float max(float a, float b)
-{
-  return a > b ? a : b;
-}
+#include <utils.h>
 
 ObjectBuffer::ObjectBuffer(int width, int height)
 {
@@ -36,7 +27,7 @@ void ObjectBuffer::Generate()
 {
   m_Objects.push_back(
     new GeneratedObject(
-      &Core::Primitives::SQUARE,
+      &Core::Primitives::CIRCLE,
       glm::vec2(m_Width, rand() % m_Height),
       glm::vec2(20.0f, 20.0f),
       0.0f,
@@ -51,8 +42,8 @@ void ObjectBuffer::Update(float dt, float ellapsedTime)
   {
     Generate();
     m_GenerateTime = ellapsedTime;
-    m_GenerationSpeed = 1.0f / (ellapsedTime / 10.0f);
-    m_GenerationSpeed = min(max(m_GenerationSpeed, 0.25f), 1.0f);
+    m_GenerationSpeed = 1.0f / (ellapsedTime / 25.0f);
+    m_GenerationSpeed = Utils::Min(Utils::Max(m_GenerationSpeed, 0.25f), 1.0f);
   }
 
   for (auto object : m_Objects)
@@ -72,4 +63,9 @@ void ObjectBuffer::Render(Core::Shader *shader)
   {
     object->Draw(shader);
   }
+}
+
+std::vector<GeneratedObject*> ObjectBuffer::GetObjects()
+{
+  return m_Objects;
 }

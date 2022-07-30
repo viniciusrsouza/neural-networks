@@ -1,6 +1,7 @@
 #pragma once
 #include <core.h>
 #include <glm/gtc/type_ptr.hpp>
+#include "object_buffer.h"
 
 class Player: public Core::Object
 {
@@ -13,6 +14,7 @@ public:
   virtual void Bind();
   void Update(float dt, float yBoundary);
   void Jump();
+  bool Collides(ObjectBuffer *buffer);
 
 private:
   Player(glm::vec2 position, Core::Shape *shape);

@@ -52,3 +52,13 @@ void Circle::Draw(Shader *shader) const
   glDrawArrays(GL_TRIANGLE_FAN, 0, m_Vertices.size() / 2);
   glBindVertexArray(0);
 }
+
+float Circle::GetRadius() const
+{
+  return m_Radius;
+}
+
+glm::vec2 Circle::GetCenter() const
+{
+  return m_Center;
+}

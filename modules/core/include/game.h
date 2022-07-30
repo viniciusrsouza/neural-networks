@@ -7,6 +7,7 @@ namespace Core
     GAME_ACTIVE,
     GAME_PAUSED,
     GAME_CLOSE,
+    GAME_OVER,
   };
 
   class Game

@@ -12,6 +12,8 @@ namespace Core
     
     virtual void Bind();
     virtual void Draw(Shader *shader = nullptr) const;
+    float GetRadius() const;
+    glm::vec2 GetCenter() const;
   
   private:
     glm::vec2 m_Center;
