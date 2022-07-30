@@ -17,6 +17,7 @@ private:
   int m_Height;
   
   float m_Speed;
-  int m_GenerateTime;
+  float m_GenerateTime;
+  float m_GenerationSpeed;
   std::vector<GeneratedObject*> m_Objects;
 };
