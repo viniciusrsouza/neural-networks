@@ -34,7 +34,7 @@ void Dodger::Init()
 
   m_FontShader->Use();
   m_Window->Font->SetShader(m_FontShader);
-  m_Window->Font->LoadFont("fonts/cascadia.ttf", 32);
+  m_Window->Font->LoadFont("fonts/Cascadia.ttf", 32);
   m_Window->Font->Bind();
 
   glm::mat4 fontProjection = glm::ortho(
