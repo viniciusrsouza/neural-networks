@@ -3,6 +3,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <keyboard_manager.h>
+#include <font_manager.h>
+#include <resource_manager.h>
 
 namespace Core
 {
@@ -16,7 +18,7 @@ namespace Core
   {
 
   public:
-    Window(int width, int height, const char *title);
+    Window(int width, int height, const char *title, const char *resources);
     Window();
     ~Window();
 
@@ -30,16 +32,14 @@ namespace Core
     int GetHeight();
     float GetTime();
     
-    void RegisterKeys(std::vector<int> keys);
-    bool KeyPressed(int key);
-    bool KeyDown(int key);
-    bool KeyUp(int key);
+    KeyboardManager *Keyboard;
+    FontManager *Font;
+    ResourceManager *Resources;
 
   private:
     update_fn m_update_function;
     render_fn m_render_function;
     init_fn m_init_function;
-    KeyboardManager *m_KeyboardManager;
     const char *m_title;
     int m_width;
     int m_height;

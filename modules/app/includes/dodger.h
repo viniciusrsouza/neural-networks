@@ -14,10 +14,14 @@ public:
   void ProcessInput(float dt);
   void Update(float dt);
   void Render();
+  void RenderPause();
+  void RenderUI();
 
 private:
-  Core::ResourceManager m_ResourceManager;
   Core::Shader *m_Shader;
+  Core::Shader *m_FontShader;
   Player m_Player;
   ObjectBuffer m_ObjectBuffer;
+
+  float m_FrameTime;
 };

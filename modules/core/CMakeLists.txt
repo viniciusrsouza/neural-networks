@@ -20,6 +20,8 @@ add_library(
   ${SOURCES} ${HEADERS}
 )
 
+#find_package(Freetype REQUIRED)
+
 target_include_directories(
   core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
@@ -30,4 +32,4 @@ set_target_properties(
   PUBLIC_HEADER "core.h"
 )
 
-target_link_libraries(core glm glfw glad)
+target_link_libraries(core glm glfw glad freetype)

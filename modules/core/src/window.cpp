@@ -7,7 +7,7 @@
 
 using namespace Core;
 
-Window::Window(int width, int height, const char *title)
+Window::Window(int width, int height, const char *title, const char *resources)
 {
   m_title = title;
   m_width = width;
@@ -15,15 +15,18 @@ Window::Window(int width, int height, const char *title)
 
   m_render_function = nullptr;
   m_update_function = nullptr;
+  Resources = new ResourceManager(resources);
 }
 
-Window::Window() : Window(SCREEN_WIDTH, SCREEN_HEIGHT, "Window")
+Window::Window() : Window(SCREEN_WIDTH, SCREEN_HEIGHT, "Window", "./")
 {
 }
 
 Window::~Window()
 {
-  delete m_KeyboardManager;
+  delete Keyboard;
+  delete Font;
+  delete Resources;
 }
 
 void Window::OnUpdate(update_fn function)
@@ -80,8 +83,11 @@ void Window::Init()
   std::cout << "Initialized OpenGL context" << std::endl;
   std::cout << glGetString(GL_VERSION) << std::endl;
 
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-  m_KeyboardManager = new KeyboardManager(window);
+  Keyboard = new KeyboardManager(window);
+  Font = new FontManager(Resources);
 
   if (m_init_function)
   {
@@ -115,7 +121,7 @@ void Window::Close()
 
 void Window::Update(float dt)
 {
-  m_KeyboardManager->Process();
+  Keyboard->Process();
   if (m_update_function)
   {
     m_update_function(dt);
@@ -145,26 +151,6 @@ int Window::GetHeight()
 float Window::GetTime()
 {
   return glfwGetTime();
-}
-
-void Window::RegisterKeys(std::vector<int> keys)
-{
-  m_KeyboardManager->RegisterKeys(keys);
-}
-
-bool Window::KeyPressed(int key)
-{
-  return m_KeyboardManager->IsKeyPressed(key);
-}
-
-bool Window::KeyDown(int key)
-{
-  return m_KeyboardManager->IsKeyDown(key);
-}
-
-bool Window::KeyUp(int key)
-{
-  return m_KeyboardManager->IsKeyUp(key);
 }
 
 void Core::framebuffer_size_callback(GLFWwindow *window, int width, int height)

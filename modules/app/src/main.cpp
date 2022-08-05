@@ -6,7 +6,7 @@
 
 int main()
 {
-  Core::Window window(1280, 720, "Neural Networks");
+  Core::Window window(1280, 720, "Neural Networks", "./modules/app/resources/");
   Dodger game = Dodger(&window);
 
   window.Init();
