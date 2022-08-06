@@ -7,6 +7,7 @@
 #include "shape.h"
 #include "object.h"
 #include "resource_manager.h"
+#include "ray_caster.h"
 #include "primitives/triangle.h"
 #include "primitives/rectangle.h"
 #include "primitives/circle.h"

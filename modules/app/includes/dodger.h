@@ -16,10 +16,13 @@ public:
   void Render();
   void RenderPause();
   void RenderUI();
+  void CastSensors();
 
 private:
   Core::Shader *m_Shader;
   Core::Shader *m_FontShader;
+  Core::Shader *m_RayShader;
+  Core::RayCaster m_RayCaster;
   Player m_Player;
   ObjectBuffer m_ObjectBuffer;
 
