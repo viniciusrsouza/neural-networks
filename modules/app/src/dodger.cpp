@@ -31,7 +31,7 @@ void Dodger::Init()
     m_Window->Resources->ReadFile("shaders/font/vertex.glsl").c_str(),
     m_Window->Resources->ReadFile("shaders/font/fragment.glsl").c_str()
   );
-
+  
   m_FontShader->Use();
   m_Window->Font->SetShader(m_FontShader);
   m_Window->Font->LoadFont("fonts/Cascadia.ttf", 32);
