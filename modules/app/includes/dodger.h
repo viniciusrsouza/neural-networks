@@ -26,5 +26,6 @@ private:
   Player m_Player;
   ObjectBuffer m_ObjectBuffer;
 
+  glm::mat4 m_Projection;
   float m_FrameTime;
 };

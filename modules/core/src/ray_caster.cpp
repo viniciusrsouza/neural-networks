@@ -20,9 +20,9 @@ RayCaster::~RayCaster()
 {
 }
 
-void RayCaster::Cast(glm::vec2 origin, glm::vec2 direction)
+void RayCaster::Cast(glm::vec2 origin, glm::vec2 direction, std::vector<Core::Object*> objects, glm::mat4 ortho)
 {
-  Cast({ origin, direction });
+  Cast({ origin, direction }, objects, ortho);
 }
 
 void RayCaster::Clear()
@@ -34,25 +34,63 @@ void RayCaster::Clear()
   m_Lines.clear();
 }
 
-void RayCaster::Cast(Ray ray)
+float line_x(glm::vec2 a, glm::vec2 b, float y)
 {
+  float m = (b.y - a.y) / (b.x - a.x);
+  float x = ((y -  a.y) / m) + a.x;
+  return x;
+}
+
+float line_y(glm::vec2 a, glm::vec2 b, float x)
+{
+  float m = (b.y - a.y) / (b.x - a.x);
+  float y = (m * (x - a.x)) + a.y;
+  return y;
+}
+
+void RayCaster::Cast(Ray ray, std::vector<Core::Object*> objects, glm::mat4 ortho)
+{
+  glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
   glm::vec2 current = ray.origin;
   glm::vec2 direction = ray.direction;
 
-  // as of now, the cast is made by incrementing the origin by the direction
-  // until the origin is outside of the screen. It works, but is certainly not the
-  // best way to do this. The proper way is to find the straight line equation, it would
-  // also be useful to detect collisions and be more precise. TODO: Find line equation
-  while (current.x < m_Width && current.y < m_Height && current.x > 0 && current.y > 0)
+  float height = direction.y > 0 ? m_Height : 0;
+  float width = direction.x > 0 ? m_Width : 0;
+
+  // point that intersects height
+  glm::vec2 p_height = glm::vec2(line_x(current, current + direction, height), height);
+  
+  // point that intersects width
+  glm::vec2 p_width = glm::vec2(width, line_y(current, current + direction, width));
+
+  glm::vec2 destiny = glm::length(p_height - current) < glm::length(p_width - current) ? p_height : p_width;
+
+  bool some = false;
+  for (auto object : objects)
   {
-    current += direction;
+    bool intersects = object->GetShape()->Intersects(object->GetPosition(), current, current + direction, ortho);
+    if (intersects)
+    {
+      some = true;
+      color = glm::vec3(1.0f, 0.0f, 0.0f);
+      // destiny = object->GetPosition();
+    }
   }
-  current -= direction;
+
+  // std::cout << "some: " << some << std::endl;
+  // if (m_Intersects)
+  // {
+  //   glm::vec2* collision = m_Intersects(current);
+  //   if (collision && glm::length(*collision - current) < glm::length(destiny - current))
+  //   {
+  //     destiny = *collision;
+  //   }
+  // }
 
   Line *line = new Line();
   line->start = ray.origin;
-  line->end = current;
-  line->color = glm::vec3(1.0f, 1.0f, 1.0f);
+  line->end = destiny;
+  line->color = color;
   line->data[0] = line->start.x;
   line->data[1] = line->start.y;
   line->data[2] = line->end.x;

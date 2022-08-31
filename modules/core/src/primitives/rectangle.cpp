@@ -43,3 +43,7 @@ void Rectangle::Draw(Shader *shader) const
   glDrawArrays(GL_TRIANGLES, 0, 6);
   glBindVertexArray(0);
 }
+
+bool Rectangle::Intersects(glm::vec2 p, glm::vec2 p1, glm::vec2 p2, glm::mat4 ortho) const {
+  return false;
+}

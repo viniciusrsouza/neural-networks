@@ -49,7 +49,7 @@ void Dodger::Init()
   );
   m_FontShader->SetMatrix4("projection", fontProjection);
 
-  glm::mat4 projection = glm::ortho(
+  m_Projection = glm::ortho(
     0.0f,
     static_cast<float>(m_Window->GetWidth()),
     static_cast<float>(m_Window->GetHeight()),
@@ -58,10 +58,10 @@ void Dodger::Init()
     1.0f
   );
   m_Shader->Use();
-  m_Shader->SetMatrix4("projection", projection);
+  m_Shader->SetMatrix4("projection", m_Projection);
 
   m_RayShader->Use();
-  m_RayShader->SetMatrix4("projection", projection);
+  m_RayShader->SetMatrix4("projection", m_Projection);
 
   Core::Primitives::SQUARE.Bind();
   Core::Primitives::CIRCLE.Bind();
@@ -88,8 +88,7 @@ void Dodger::ProcessInput(float dt)
     m_State = Core::GameState::GAME_CLOSE;
 }
 void Dodger::Update(float dt)
-{
-  
+{ 
   if (m_State == Core::GameState::GAME_CLOSE)
   {
     Exit();
@@ -104,9 +103,9 @@ void Dodger::Update(float dt)
       m_State = Core::GameState::GAME_OVER;
     }
 
-    CastSensors();
   }
 
+  CastSensors();
   if (m_State == Core::GameState::GAME_ACTIVE)
     m_FrameTime = dt;
 }
@@ -134,14 +133,14 @@ void Dodger::CastSensors()
 {
   m_RayCaster.Clear();
 
-  float delta = 0.5f;
+  float delta = 45.0f;
   float angle = 0.0f;
 
   for (float i = 0.0f; i < 360.0f; i += delta)
   {
     angle = glm::radians(i);
     glm::vec2 direction = glm::vec2(glm::cos(angle), glm::sin(angle));
-    m_RayCaster.Cast(m_Player.GetPosition(), direction);
+    m_RayCaster.Cast(m_Player.GetPosition(), direction, m_ObjectBuffer.GetObjects(), m_Projection);
   }
 }
 

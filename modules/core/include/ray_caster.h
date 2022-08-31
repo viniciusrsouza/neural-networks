@@ -2,8 +2,10 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
+#include <iterator>
 #include <iostream>
 #include "shader.h"
+#include "object.h"
 
 namespace Core
 {
@@ -29,8 +31,8 @@ namespace Core
     RayCaster(int width, int height);
     ~RayCaster();
 
-    void Cast(Ray ray);
-    void Cast(glm::vec2 origin, glm::vec2 direction);
+    void Cast(Ray ray, std::vector<Core::Object*> objects, glm::mat4 ortho);
+    void Cast(glm::vec2 origin, glm::vec2 direction, std::vector<Core::Object*> objects, glm::mat4 ortho);
 
     void Draw(Shader *shader);
     void Clear();

@@ -38,3 +38,7 @@ void Triangle::Draw(Shader *shader) const
   glDrawArrays(GL_TRIANGLES, 0, 3);
   glBindVertexArray(0);
 }
+
+bool Triangle::Intersects(glm::vec2 p, glm::vec2 p1, glm::vec2 p2, glm::mat4 ortho) const {
+  return false;
+}

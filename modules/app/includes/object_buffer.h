@@ -12,7 +12,7 @@ public:
   void Generate();
   void Update(float dt, float ellapsedTime);
   void Render(Core::Shader *shader);
-  std::vector<GeneratedObject*> GetObjects();
+  std::vector<Core::Object*> GetObjects();
 
 private:
   int m_Width;

@@ -14,6 +14,7 @@ namespace Core
     virtual void Draw(Shader *shader = nullptr) const;
     float GetRadius() const;
     glm::vec2 GetCenter() const;
+    virtual bool Intersects(glm::vec2 p, glm::vec2 p1, glm::vec2 p2, glm::mat4 ortho) const;
   
   private:
     glm::vec2 m_Center;

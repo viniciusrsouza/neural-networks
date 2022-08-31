@@ -18,6 +18,7 @@ namespace Core
     void Draw(Shader *shader) const;
     glm::vec2 GetPosition() const;
     glm::vec2 GetScale() const;
+    Shape *GetShape() const;
   
   protected:
     Shape *m_Shape;

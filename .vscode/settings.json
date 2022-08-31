@@ -77,6 +77,7 @@
     "variant": "cpp",
     "__functional_base": "cpp",
     "__tree": "cpp",
-    "map": "cpp"
+    "map": "cpp",
+    "format": "cpp"
   }
 }

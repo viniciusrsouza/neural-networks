@@ -25,6 +25,8 @@ ObjectBuffer::~ObjectBuffer()
 
 void ObjectBuffer::Generate()
 {
+  if (m_Objects.size() > 0) return;
+
   m_Objects.push_back(
     new GeneratedObject(
       &Core::Primitives::CIRCLE,
@@ -65,7 +67,13 @@ void ObjectBuffer::Render(Core::Shader *shader)
   }
 }
 
-std::vector<GeneratedObject*> ObjectBuffer::GetObjects()
+std::vector<Core::Object*> ObjectBuffer::GetObjects()
 {
-  return m_Objects;
+  std::vector<Core::Object*> objects;
+  for (auto object : m_Objects)
+  {
+    objects.push_back(object);
+  }
+  return objects;
 }
+

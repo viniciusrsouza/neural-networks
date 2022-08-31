@@ -46,3 +46,8 @@ void Object::Draw(Shader *shader) const
   }
   m_Shape->Draw(shader);
 }
+
+Shape *Object::GetShape() const
+{
+  return m_Shape;
+}
